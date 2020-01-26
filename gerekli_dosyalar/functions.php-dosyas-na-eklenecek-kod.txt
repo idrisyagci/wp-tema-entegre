@@ -1,0 +1,44 @@
+
+/*acf*/
+add_filter('acf/settings/path', 'my_acf_settings_path');
+ 
+function my_acf_settings_path( $path ) {
+    $path = get_stylesheet_directory() . '/inc/acf/';
+    return $path;
+}
+
+
+add_filter('acf/settings/dir', 'my_acf_settings_dir');
+ 
+function my_acf_settings_dir( $dir ) {
+    $dir = get_stylesheet_directory_uri() . '/inc/acf/';
+    return $dir;
+    
+}
+
+//add_filter('acf/settings/show_admin', '__return_false');
+
+include_once( get_stylesheet_directory() . '/inc/acf/acf.php' );
+
+if( function_exists('acf_add_options_page') ) {
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Site Ayarları',
+		'menu_title'	=> 'Site Ayarları',
+		'menu_slug' 	=> 'site-ayarlari',
+		'capability'	=> 'manage_options',
+		'redirect'		=> false
+	));
+	
+	
+	acf_add_options_page(array(
+		'page_title' 	=> 'Ana Sayfa Ayarları',
+		'menu_title'	=> 'Ana Sayfa Ayarları',
+		'menu_slug' 	=> 'anasayfa-ayarlari',
+		'parent_slug'	=> 'site-ayarlari',
+		'capability'	=> 'manage_options',
+		'redirect'		=> false
+	));
+	
+	
+}
